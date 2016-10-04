@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  min_area: MyString
+  : MyString
+  max_area: MyString
+  : MyString
+  locality_id: MyString
+  : 1
+  city_id: MyString
+  : 1
+  min_price: MyString
+  : MyString
+  max_price: MyString
+  : MyString
+  availabiity: MyString
+  : MyString
+
+two:
+  min_area: MyString
+  : MyString
+  max_area: MyString
+  : MyString
+  locality_id: MyString
+  : 1
+  city_id: MyString
+  : 1
+  min_price: MyString
+  : MyString
+  max_price: MyString
+  : MyString
+  availabiity: MyString
+  : MyString

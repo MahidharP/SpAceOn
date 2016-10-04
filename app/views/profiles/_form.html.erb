@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="page-header">
+      <h2>WelCome To SpAceOn</h2>
+    </div>
+    <%= form_for(@profile) do |f| %>
+    <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+        <% @profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :first_name %><br>
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :last_name %><br>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :Date_Of_Birth %><br>
+        <%= f.date_select :dob, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :profession_id %><br>
+        <%= f.collection_select :profession_id, Profession.all, :id, :name, prompt: "What Am I" %><br/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :gender %><br>
+        <%= f.radio_button :gender, "male" %> Male
+        <%= f.radio_button :gender, "female" %> Female
+        <%= f.radio_button :gender, "other" %> Other
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :mobile %><br>
+        <%= f.number_field :mobile, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :pro_pic %><br>
+        <%= f.text_field :pro_pic, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :id_proof %><br>
+        <%= f.text_field :id_proof, class: "form-control" %>
+      </div>
+    </div>
+    <%= f.hidden_field :user_id, value: @user_id %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <% end %>

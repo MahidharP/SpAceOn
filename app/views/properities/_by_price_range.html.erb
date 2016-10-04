@@ -1,0 +1,58 @@
+<div class = "row">
+	<div class = "col-md-10" >
+		<div class = "page-header" >
+
+			<h2>Listing Properities </h2>
+		</div>
+		<% if @properities.empty? %>
+		<p>NO Properities found </p>
+		<% else %>
+		<table class="table table-stripped">
+			<thead>
+				<tr>
+					<th>Sl.No </th>
+					<th>Name </th>
+					<th>Address</th>
+					<th>Locality Id</th>
+					<th>City Id </th>
+					<th>Properity Type </th>
+					<th>Area </th>
+					<th> Price</th>
+					<th>Advance Amount </th>
+					<th>Description </th>
+					<th> Availability</th>
+					<% if current_user.is_admin? %>
+					<th>User</th>
+					<% end %>
+					<th>Image Url </th>
+					<th>Action</th>
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<% @properities.each_with_index do |properity,index| %>
+				<tr>
+					<td><%= index + 1 %></td>
+					<td><%= properity.name %></td>
+					<td><%= properity.address %></td>
+					<td><%= properity.locality.nil? ? "N/A" : properity.locality.name %></td>
+					<td><%= properity.city.nil? ? "N/A" : properity.city.name %></td>
+					<td><%= properity.properity_type %></td>
+					<td><%= properity.area  %></td>
+					<td><%= properity.price  %></td>
+					<td><%= properity.advance_amount  %></td>
+					<td><%= properity.description  %></td>
+					<td><%= properity.availability  %></td>
+					<% if current_user.is_admin? %>
+					<td><%= properity.user.email %></td>
+					<% end %>
+					<td><%= properity.image_url  %></td>
+					<td><%= link_to "Show", properity_path(properity.id) %> </td>
+				</tr>
+				<%end %>
+			</tbody>
+		</table>
+		<% end %>
+	</div>
+</div>

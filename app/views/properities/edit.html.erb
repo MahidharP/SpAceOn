@@ -1,0 +1,61 @@
+<div class = "row" >
+<div class = "col-md-8" >
+<div class = "page-header" >
+<h2>Edit Properity </h2>
+</div>
+<%= form_for @properity do |f| %>
+	<% if @properity.errors.any? %>
+			<h4>These errors proibited the form being saved:</h4>
+			<ul style="color:red;">
+				<% @properity.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		<% end %>
+	<label>User </label><br>
+	<%= f.text_field :name %><br/>
+
+	<label>Name</label><br>
+	<%= f.text_field :name %><br/>
+
+	<label>Address</label><br>
+	<%= f.text_area :address %><br/>
+
+	<label>Locality </label><br>
+	<%= f.collection_select :locality_id, Locality.all, :id, :name, prompt: "Select Locality" %><br/>
+	<label>City</label><br>
+	<%= f.collection_select :city_id, City.all, :id, :name, prompt: "Select City" %><br/>
+	
+	<label>Properity Type</label><br>
+	<%= f.text_field :properity_type %><br/>
+
+	<label>Properity Area</label><br>
+	<%= f.text_field :area %><br/>
+	
+	<label>Properity Price </label><br>
+	<%= f.text_field :price %><br/>
+
+	<label>Advance </label><br>
+	<%= f.text_field :advance_amount %><br/>
+
+	<label>Description</label><br>
+	<%= f.text_area :description %><br/>
+
+	<label>Avaliability</label><br>
+	<%= f.text_field :availability %><br/>
+
+	<label>Image </label><br>
+	<%= f.text_area :image_url %><br/>
+
+	<%= f.submit %>
+<% end %>
+
+<%= link_to "Home", properities_path %> 
+
+</div>
+
+<div class = "col-md-4" >
+<div class = "page-header" >
+<h2>Gotcha Folks </h2>
+</div>
+</div>

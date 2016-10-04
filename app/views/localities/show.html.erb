@@ -1,0 +1,30 @@
+<div class = "row"  >
+<div class = "col-md-8" >
+<div class = "page-header" >
+<h2><%= @locality.name %></h2>
+</div>
+
+<%= link_to "edit", edit_locality_path(@locality.id) %>
+
+<%= link_to "destroy", locality_path(@locality.id), data: {method: :delete, confirm: "Are you Sure?" } %><br/>
+<% if @locality.properities.empty? %>
+	No Properities Found 
+<% else %>
+	<h3> Total Properities : <%= @locality.properities.size %></h3>
+	<ul>
+		<% @locality.properities.each do |properity| %>
+			<li><%= link_to properity.name, properity_path(properity.id) %></li>
+		<% end %>
+	</ul>
+<% end %>
+<% if can? :create, Properity.new %>
+<%= link_to "Add Properity", new_properity_path, class:"btn btn-info" %>
+<% end %> 
+<%= link_to "Home", localities_path, class:"btn btn-info" %>
+</div>
+
+<div class = "col-md-4" >
+<div class = "page-header" >
+<h2>Gotcha Folks In A Few Moments</h2>
+</div>
+</div>

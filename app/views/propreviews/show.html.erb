@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @propreview.user_id %>
+</p>
+
+<p>
+  <strong>Properity:</strong>
+  <%= @propreview.properity_id %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @propreview.rating %>
+</p>
+
+<p>
+  <strong>Review:</strong>
+  <%= @propreview.rev_desc %>
+</p>
+
+<%= link_to 'Edit', edit_propreview_path(@propreview) %> |
+<%= link_to 'Back', propreviews_path %>

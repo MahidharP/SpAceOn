@@ -1,0 +1,31 @@
+<h1>Listing review_tenants</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Tenant</th>
+      <th>Review</th>
+      <th>Rating</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @review_tenants.each do |review_tenant| %>
+      <tr>
+        <td><%= review_tenant.user_id %></td>
+        <td><%= review_tenant.tenant_id %></td>
+        <td><%= review_tenant.review %></td>
+        <td><%= review_tenant.rating %></td>
+        <td><%= link_to 'Show', review_tenant %></td>
+        <td><%= link_to 'Edit', edit_review_tenant_path(review_tenant) %></td>
+        <td><%= link_to 'Destroy', review_tenant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Review tenant', new_review_tenant_path %>

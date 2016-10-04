@@ -1,0 +1,104 @@
+<div class = "row" >
+<div class = "col-md-8" >
+<div class = "page-header" >
+<h2>Add Properity </h2>
+</div>
+<%= form_for @properity do |f| %>
+	<% if @properity.errors.any? %>
+			<h4>These errors proibited the form being saved:</h4>
+			<ul style="color:red;">
+				<% @properity.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		<% end %>
+
+	<%= f.hidden_field :user_id, value: @user %>
+	<div class="form-group">
+	<div class="field">
+	<%=f.label :name %><br>
+	<%= f.text_field :name, class: "form-control" %>
+	</div>
+	</div>
+
+	<div class="form-group">
+	<div class="field">
+	<%= f.label :address %><br>
+	<%= f.text_area :address, class: "form-control" %><br>
+	</div>
+	</div>
+
+	<label>City</label><br>
+	<%= f.collection_select :city_id, City.all, :id, :name, prompt: "Select City" %><br/>
+
+	<label>Locality </label><br>
+	<%= f.collection_select :locality_id, Locality.all, :id, :name, prompt: "Select Locality" %><br/>
+	
+	<div class="form-group">
+	<div class="field">
+	<%= f.label :properity_type %><br/>
+	<%= f.radio_button :properity_type, "PG" %>PG<br/>
+	<%= f.radio_button :properity_type, "Independent House" %>Independent House<br/>
+	<%= f.radio_button :properity_type, "Flat" %>Flat<br/>
+	<%= f.radio_button :properity_type, "House" %>House<br/>
+	<%= f.radio_button :properity_type, "Other" %>Others<br/>
+	<%= f.text_field :properity_type, class: "form-control" %><br/>
+	</div>
+	</div>
+
+	<div class="form-group">
+	<div class="field">
+	<%= f.label :area %>
+	<%= f.number_field :area, class: "form-control" %><br/>
+	</div>
+	</div>
+	
+	<div class="form-group">
+	<div class="field">
+	<%= f.label :price %>
+	<%= f.number_field :price, class: "form-control" %><br/>
+	</div>
+	</div>
+
+	<div class="form-group">
+	<div class="field">
+	<%= f.label :advance_amount %>
+	<%= f.number_field :advance_amount, class: "form-control" %><br/>
+	</div>
+	</div>
+
+	<div class="form-group">
+	<div class="field">
+	<%= f.label :description %>
+	<%= f.text_area :description, class: "form-control" %><br/>
+	</div>
+	</div>
+
+	<div class="form-group">
+	<div class="field">
+	<%= f.label :availability %><br/>
+	<%= f.radio_button :availability, "yes"  %>Yes<t>
+	<%= f.radio_button :availability, "No" %>No<br/>
+	</div>
+	</div>
+
+	<div class="form-group">
+	<div class="field">
+	<%= f.label :image_url %>
+	<%= f.text_area :image_url, class: "form-control" %><br/>
+	</div>
+	</div>
+
+
+	<%= f.submit %>
+<% end %>
+
+<%= link_to "Home", properities_path, class:"btn btn-info" %>
+
+</div>
+
+<div class = "col-md-4" >
+<div class = "page-header" >
+<h2>Gotcha Folks In A Moment </h2>
+</div>
+</div>

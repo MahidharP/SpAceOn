@@ -1,0 +1,190 @@
+<div class = "row">
+	<div class = "col-md-10" >
+		<div class = "page-header" >
+
+			<h2>Listing Properities </h2>
+		</div>
+		<% if @properities.empty? %>
+		<p>NO Properities found </p>
+		<% else %>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Sl.No </th>
+					<th>Name </th>
+					<th>Address</th>
+					<th>Locality</th>
+					<th>City</th>
+					<th>Properity Type </th>
+					<th>Area </th>
+					<th> Price</th>
+					<th>Advance Amount </th>
+					<th>Description </th>
+					<th> Availability</th>
+					<% if current_user.is_admin? %>
+					<th>Owner</th>
+					<% end %>
+					<th>Image Url </th>
+					<th>Action</th>
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<% @properities.each_with_index do |properity,index| %>
+				<tr>
+					<td><%= index + 1 %></td>
+					<td><%= properity.name %></td>
+					<td><%= properity.address %></td>
+					<td><%= properity.locality.nil? ? "N/A" : properity.locality.name %></td>
+					<td><%= properity.city.nil? ? "N/A" : properity.city.name %></td>
+					<td><%= properity.properity_type %></td>
+					<td><%= properity.area  %></td>
+					<td><%= properity.price  %></td>
+					<td><%= properity.advance_amount  %></td>
+					<td><%= properity.description  %></td>
+					<td><%= properity.availability  %></td>
+					<% if current_user.is_admin? %>
+					<td><%= properity.user.profile.nil? ? "N/A" : properity.user.profile.first_name %></td>
+					<% end %>
+					<td><%= properity.image_url  %></td>
+					<td><%= link_to "Show", properity_path(properity.id) %> </td>
+				</tr>
+				<%end %>
+			</tbody>
+		</table>
+		<% end %>
+
+		<% if can? :create, Properity.new %>
+
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			Add Properity
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Welcome Admin</h4>
+					</div>
+					<div class="modal-body">
+						<%= form_for @properity do |f| %>
+						<%= f.hidden_field :user_id, value: @user %>
+						<div class="form-group">
+							<div class="field">
+								<%=f.label :name %><br>
+								<%= f.text_field :name, class: "form-control" %>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :address %><br>
+								<%= f.text_area :address, class: "form-control" %><br>
+							</div>
+						</div>
+
+						<label>City</label><br>
+						<%= f.collection_select :city_id, City.all, :id, :name, prompt: "Select City" %><br/>
+
+						<label>Locality </label><br>
+						<%= f.collection_select :locality_id, Locality.all, :id, :name, prompt: "Select Locality" %><br/>
+
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :properity_type %><br/>
+								<%= f.radio_button :properity_type, "PG" %>PG<br/>
+								<%= f.radio_button :properity_type, "Independent House" %>Independent House<br/>
+								<%= f.radio_button :properity_type, "Flat" %>Flat<br/>
+								<%= f.radio_button :properity_type, "House" %>House<br/>
+								<%= f.radio_button :properity_type, "Other" %>Others<br/>
+								<%= f.text_field :properity_type, class: "form-control" %><br/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :area %>
+								<%= f.number_field :area, class: "form-control" %><br/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :price %>
+								<%= f.number_field :price, class: "form-control" %><br/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :advance_amount %>
+								<%= f.number_field :advance_amount, class: "form-control" %><br/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :description %>
+								<%= f.text_area :description, class: "form-control" %><br/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :availability %><br/>
+								<%= f.radio_button :availability, "yes"  %>Yes<t>
+								<%= f.radio_button :availability, "No" %>No<br/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :image_url %>
+								<%= f.text_area :image_url, class: "form-control" %><br/>
+							</div>
+						</div>
+
+
+						<%= f.submit %>
+						<% end %>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% end %>
+
+	</div>
+	
+	<div class = "row" >
+		<div class = "col-md-6" >
+			<div class ="page-header" >
+				<% if can? :create, City.new %>
+				<h2>For Cities</h2>
+
+				<h3>To <%= link_to "Add City", new_city_path, class:"btn btn-info" %></h3>
+				<h3>Goto <%= link_to "City", cities_path, class:"btn btn-info" %></h3>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-md-6" >
+			<div class = "page-header" >
+				<% if can? :create, Locality.new %>
+				<h2>For Localities </h2>
+				<h3>To <%= link_to "Add Locality", new_locality_path, class:"btn btn-info"  %> to City </h3>
+				<h3>Goto <%= link_to "Localities", localities_path, class:"btn btn-info" %></h3>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+
+

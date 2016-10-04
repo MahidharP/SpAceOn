@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: MyString
+  : 1
+  name: MyString
+  : MyString
+  address: MyString
+  : MyString
+  locality_id: MyString
+  : 1
+  city_id: MyString
+  : 1
+  properity_type: MyString
+  : MyString
+  area: MyString
+  : MyString
+  price: MyString
+  : MyString
+  advance_amount: MyString
+  : MyString
+  description: MyString
+  : MyText
+  availability: MyString
+  : MyString
+
+two:
+  user_id: MyString
+  : 1
+  name: MyString
+  : MyString
+  address: MyString
+  : MyString
+  locality_id: MyString
+  : 1
+  city_id: MyString
+  : 1
+  properity_type: MyString
+  : MyString
+  area: MyString
+  : MyString
+  price: MyString
+  : MyString
+  advance_amount: MyString
+  : MyString
+  description: MyString
+  : MyText
+  availability: MyString
+  : MyString

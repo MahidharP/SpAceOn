@@ -1,0 +1,129 @@
+<div class = "row" >
+	<div class = "col-md-8" >
+		<div class = "page-header" >
+
+			<h2><%= @properity.name %></h2>
+			<h3>Properity owner Is <b><%= @properity.user.profile.first_name %></b> - <%= @properity.user.profile.mobile %> </h3>
+			
+		</div>
+		<% if current_user.is_owner? %>
+		<%= link_to "edit", edit_properity_path(@properity.id), class:"btn btn-info" %>
+		<%= link_to "destroy", properity_path(@properity.id), data: {method: :delete, confirm: "Are you Sure?" }, class:"btn btn-info" %><br/>
+		<% end %>
+
+		<% if @properity.propreviews.empty? %>
+		<h3>Been Here, Be the First to Review </h3></br> 
+		<% else %>
+		<h3> Total Properity Reviews : <%= @properity.propreviews.size %></h3>
+		<ul>
+			<% for propreview in @properity.propreviews %>
+			Review By <em><%= propreview.user.profile.first_name %></em> 
+			<li>Rating - <%= propreview.rating %></li><br/>
+			<p><%= propreview.rev_desc %></p>
+			<% end %>
+		</ul>
+		<% end %>
+
+
+		<%= link_to "Home", properities_path, class:"btn btn-info" %>
+
+		<% if current_user.is_tenant? %>
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			Add Properity Review
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Welcome </h4>
+					</div>
+					<div class="modal-body">
+
+						<%= form_for @propreview do |f| %>
+						<%= f.hidden_field :user_id, value: @user %>
+						<%= f.hidden_field :properity_id, value: @properity.id %>
+						<div class="form-group">
+							<div class="field">
+								<%= f.label :rating %><br>
+								<%= f.radio_button :rating, "1" %>1
+								<%= f.radio_button :rating, "2" %>2
+								<%= f.radio_button :rating, "3" %>3
+								<%= f.radio_button :rating, "4" %>4
+								<%= f.radio_button :rating, "5" %>5
+							</div>
+						</div>
+						<div class="form-group" >
+							<div class="field">
+								<%= f.label :Review %><br>
+								<%= f.text_area :rev_desc, class: "form-control" %>
+							</div>
+						</div>
+						<div class="actions">
+							<%= f.submit  %>
+						</div>
+						<% end %>					
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
+
+
+
+		<h3>Listing Reviews for the owner</h3>
+		<ul>
+			<% ReviewOwner.where('owner_id = ?', @properity.user_id).each do |review| %>
+			<li><%= review.review %> <%= "*" * review.rating %> by 
+				<em> <%= link_to review.user.try(:profile).try(:first_name), profiles_path %></em>
+			</li>
+			<% end %> 
+		</ul>
+
+		<% if current_user.is_tenant? %>
+		<%= form_for @review_owner do |d| %>
+		<%= d.hidden_field :owner_id, value: @properity.user_id %>
+		<div class="field">
+							<%= d.label :rating %><br>
+							<%= d.radio_button :rating, "1" %>1
+							<%= d.radio_button :rating, "2" %>2
+							<%= d.radio_button :rating, "3" %>3
+							<%= d.radio_button :rating, "4" %>4
+							<%= d.radio_button :rating, "5" %>5
+						</div>
+						<div class="form-group">
+							<div class="field">
+								<%= d.label :Review %><br>
+								<%= d.text_area :review, class: "form-control" %>
+							</div>
+						</div>
+						<div class="actions">
+							<%= d.submit  %>
+						</div>
+						<% end %>		
+						<% end %>
+						<div class="btn-group pull-right">
+  <%= review_owner_to like_review_owner_path(@review_owner), method: :put, class: "btn btn-default btn-sa" do %>
+  <span class="glyphicon glyphicon-chevron-up"></span>
+  Upvote
+  <%= @review_owner.get_upvotes.size %>
+  <% end %>
+
+  <%= review_owner_to dislike_review_owner_path(@review_owner), method: :put, class: "btn btn-default btn-sa" do %>
+  <span class="glyphicon glyphicon-chevron-up"></span>
+  Downvote
+  <%= @review_owner.get_downvotes.size %>
+  <% end %>
+</div>
+
+		<div class = "col-md-4" >
+			<div class = "page-header" >
+			</div>
+		</div>
+	</div>

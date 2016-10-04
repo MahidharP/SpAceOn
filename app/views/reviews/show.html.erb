@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @review.rating %>
+</p>
+
+<p>
+  <strong>Review:</strong>
+  <%= @review.review %>
+</p>
+
+<p>
+  <strong>Properity:</strong>
+  <%= @review.properity_id %>
+</p>
+
+<%= f.hidden_field :reviewer, value: @current_user.id %>
+<%= f.hidden_field :reviewee, value: @user_id %>
+
+<%= link_to 'Edit', edit_review_path(@review) %> |
+<%= link_to 'Back', reviews_path %>

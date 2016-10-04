@@ -1,0 +1,33 @@
+<%= form_for(@review) do |f| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :rating %><br>
+    <%= f.label :rating %><br>
+    <%= f.radio_button :rating, "1" %> 1
+    <%= f.radio_button :rating, "2" %> 2
+    <%= f.radio_button :rating, "3" %> 3
+    <%= f.radio_button :rating, "4" %> 4
+    <%= f.radio_button :rating, "5" %> 5
+  </div>
+  <div class="field">
+    <%= f.label :review %><br>
+    <%= f.text_area :review %>
+  </div>
+  <%= f.hidden_field :properity_id, value: @properity_id %>
+  <%= f.hidden_field :user_id, value: @user_id %>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
