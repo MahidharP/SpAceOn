@@ -24,13 +24,16 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-    def is_admin?
+
+  def is_admin?
 		return true if self.role == "admin"
-	end 
+	end
+
 	def is_tenant?
 		return true if self.role == "tenant"
 	end
+
 	def is_owner?
 		return true if self.role == "owner"
-	end 
+	end
 end
